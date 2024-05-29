@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{username} {
+      allow read;
+      allow write: if request.auth.uid != null;
+    }
+    match /team/{id} {
+    	allow read;
+      allow write: if request.auth.uid != null;
+    }
+    match /users/ALL-USERS {
+    	allow read;
+      allow write;
+    }
+    match /contact/{docId} {
+    	allow read: if request.auth.uid != null;
+      allow write;
+    }
+    match /math/{something} {
+    	allow read;
+      allow write: if request.auth.uid != null;
+    }
+    match /physics/{something} {
+    	allow read;
+      allow write: if request.auth.uid != null;
+    }
+    match /chemistry/{something} {
+    	allow read;
+      allow write: if request.auth.uid != null;
+    }
+    match /{document}/{something} {
+    allow delete: if false;
+    }
+  }
+}
